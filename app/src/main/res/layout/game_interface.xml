@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="3"
+    android:rowCount="4">
+
+    <ImageView
+        android:id="@+id/i1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i7"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i8"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <ImageView
+        android:id="@+id/i9"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="attack"
+        android:src="@drawable/none" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:text="TextView" />
+</GridLayout>
