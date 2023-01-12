@@ -11,6 +11,8 @@ import kotlin.math.floor
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var tracker: TextView
+
     //This is turn counter of a battle
     var turn = 1
 
@@ -34,44 +36,53 @@ class MainActivity : AppCompatActivity() {
     //func that contain game's rule
     // X: 1, O: 2
     private fun handleGame(keyY: Int, keyX: Int, target: Int) {
+        println("Target: $target")
 
-        var startPointX = 0
-        var startPointY = 0
+        var startPointX = keyX
+        var startPointY = keyY
         //end game
 
         fun endgame() {
             //handle
+            this.tracker.text = "end"
+            println("end")
         }
 
         fun getStartPoint(y: Int, x: Int) {
-            var axisY = keyY
-            var axisX = keyX
+            var axisY = keyY - y
+            var axisX = keyX - x
 
-            while (axisY > 0 && axisX > 0
-                && axisX < maxRow - 1 && axisY < maxColumn - 1 && table[axisY - y][axisX - x] != 0
-                && table[axisY - y][axisX - x] != target
+            while (axisY >= 0 && axisX >= 0
+                && axisX < maxRow && axisY < maxColumn
+                && table[axisY][axisX] == target
             ) {
                 axisY -= y
                 axisX -= x
             }
 
-            startPointX = axisX
-            startPointY = axisY
+            startPointX = axisX + x
+            startPointY = axisY + y
+            println("X: $startPointX")
+            println("Y: $startPointY")
         }
 
         fun checkLine(y: Int, x: Int): Boolean {
 
             getStartPoint(y, x)
 
+            startPointX += x
+            startPointY += y
+
             var count = 1
-            while (count != milestone && startPointX < maxColumn - 1 && startPointY < maxRow - 1
-                && startPointX > 0 && startPointY > 0
-                && table[startPointY + y][startPointX + x] == table[startPointY][startPointX]
+            while (count != milestone && startPointX < maxColumn && startPointY < maxRow
+                && startPointX >= 0 && startPointY >= 0
+                && table[startPointY][startPointX] == target
             ) {
 
                 ++count
                 startPointX += x
                 startPointY += y
+                println("Count: $count")
 
             }
 
@@ -80,7 +91,8 @@ class MainActivity : AppCompatActivity() {
             return false
         }
 
-        if (checkLine(1, 1) || checkLine(0, 1) || checkLine(-1, -1) || checkLine(1, 0)) {
+        println("checking")
+        if (checkLine(1, 1) || checkLine(0, 1) || checkLine(1, -1) || checkLine(1, 0)) {
             endgame()
         }
     }
@@ -102,8 +114,7 @@ class MainActivity : AppCompatActivity() {
         var row = (getIndex(view.tag.toString()) - 3 * (col - 1))
 
         //tracker
-        val tracker: TextView = findViewById(R.id.textView2)
-
+        this.tracker = findViewById(R.id.textView2)
 
         //caro square handler
         var check = "No"
@@ -116,8 +127,8 @@ class MainActivity : AppCompatActivity() {
                 item.setImageResource(R.drawable.o)
                 table[col - 1][row - 1] = 2
             }
+            handleGame(col - 1, row - 1, if (turn % 2 == 0) 1 else 2)
             ++turn
-            handleGame(col, row, if (turn % 2 == 0) 1 else 2)
         }
 
         for (i in 0..2 step 1) {
