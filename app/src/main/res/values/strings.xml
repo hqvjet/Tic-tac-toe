@@ -1,4 +1,13 @@
 <resources>
     <string name="title">Caro Offline</string>
     <string name="active">Play</string>
+    <string name="i1">1</string>
+    <string name="i2">2</string>
+    <string name="i3">3</string>
+    <string name="i4">4</string>
+    <string name="i5">5</string>
+    <string name="i6">6</string>
+    <string name="i7">7</string>
+    <string name="i8">8</string>
+    <string name="i9">9</string>
 </resources>

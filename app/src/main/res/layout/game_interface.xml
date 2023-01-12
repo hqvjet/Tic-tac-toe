@@ -4,10 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="3"
-    android:rowCount="4">
+    android:rowCount="4"
+    android:background="@color/black"
+    >
 
     <ImageView
         android:id="@+id/i1"
+        android:tag="@string/i1"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -15,6 +18,7 @@
 
     <ImageView
         android:id="@+id/i2"
+        android:tag="@string/i2"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -22,6 +26,7 @@
 
     <ImageView
         android:id="@+id/i3"
+        android:tag="@string/i3"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -29,6 +34,7 @@
 
     <ImageView
         android:id="@+id/i4"
+        android:tag="@string/i4"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -36,6 +42,7 @@
 
     <ImageView
         android:id="@+id/i5"
+        android:tag="@string/i5"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -43,6 +50,7 @@
 
     <ImageView
         android:id="@+id/i6"
+        android:tag="@string/i6"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -50,6 +58,7 @@
 
     <ImageView
         android:id="@+id/i7"
+        android:tag="@string/i7"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -57,6 +66,7 @@
 
     <ImageView
         android:id="@+id/i8"
+        android:tag="@string/i8"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -64,6 +74,7 @@
 
     <ImageView
         android:id="@+id/i9"
+        android:tag="@string/i9"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="attack"
@@ -75,5 +86,7 @@
         android:layout_height="100dp"
         android:layout_row="3"
         android:layout_column="0"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/background"
+        />
 </GridLayout>
