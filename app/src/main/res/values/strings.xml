@@ -1,6 +1,7 @@
 <resources>
     <string name="title">Caro Offline</string>
     <string name="active">Play</string>
+    <string name="i">i</string>
     <string name="i1">1</string>
     <string name="i2">2</string>
     <string name="i3">3</string>

@@ -2,27 +2,28 @@ package com.example.first
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.ceil
-import kotlin.math.ceil
-import kotlin.math.floor
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tracker: TextView
+    private lateinit var alert: TextView
+    private lateinit var backdrop: Backdrop
+    private lateinit var gridLayout: GridLayout
 
     //This is turn counter of a battle
     var turn = 1
 
-    //3x3 table for handling game data
-    var table = Array(3) { Array(3) { 0 } } // X: 1, O: 2
-
     //Game Resource
-    private var maxRow = 3
-    private var maxColumn = 3
-    private val milestone = 3
+    private var size = 100
+    private val milestone = 4
+
+    //3x3 table for handling game data
+    private var table = Array(size) { Array(size) { 0 } } // X: 1, O: 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,23 @@ class MainActivity : AppCompatActivity() {
 
     fun onClick(view: View) {
         setContentView(R.layout.game_interface)
+        gridLayout = findViewById(R.id.gridlayout)
+        gridLayout.columnCount = size
+        gridLayout.rowCount = size
+
+        for (i in 1..size * size) {
+            val imageView = ImageView(this)
+            imageView.layoutParams = ViewGroup.LayoutParams(100, 100)
+            imageView.setImageResource(R.drawable.none)
+            imageView.setPadding(1,1,1,1)
+            imageView.setOnClickListener {
+                attack(it)
+            }
+            imageView.id = i
+            imageView.tag = i.toString()
+            gridLayout.addView(imageView)
+        }
+
     }
 
     //func that contain game's rule
@@ -42,10 +60,10 @@ class MainActivity : AppCompatActivity() {
         var startPointY = keyY
         //end game
 
-        fun endgame() {
+        fun endgame(winner: Int) {
             //handle
-            this.tracker.text = "end"
-            println("end")
+            backdrop = Backdrop(if(winner == 1) "X Won" else "O Won").apply { isCancelable = false }
+            backdrop.show(supportFragmentManager, "MyDialogFragment")
         }
 
         fun getStartPoint(y: Int, x: Int) {
@@ -53,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             var axisX = keyX - x
 
             while (axisY >= 0 && axisX >= 0
-                && axisX < maxRow && axisY < maxColumn
+                && axisX < size && axisY < size
                 && table[axisY][axisX] == target
             ) {
                 axisY -= y
@@ -74,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             startPointY += y
 
             var count = 1
-            while (count != milestone && startPointX < maxColumn && startPointY < maxRow
+            while (count != milestone && startPointX < size && startPointY < size
                 && startPointX >= 0 && startPointY >= 0
                 && table[startPointY][startPointX] == target
             ) {
@@ -93,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
         println("checking")
         if (checkLine(1, 1) || checkLine(0, 1) || checkLine(1, -1) || checkLine(1, 0)) {
-            endgame()
+            endgame(target)
         }
     }
 
@@ -101,25 +119,26 @@ class MainActivity : AppCompatActivity() {
         return input.toInt()
     }
 
-    fun attack(view: View) {
+    private fun attack(view: View) {
         val item: ImageView = findViewById(view.id)
 
         //idea: get const of fired image and compare with specified image's const
         val imgID = item.drawable.constantState;
         val imgID2 = getDrawable(R.drawable.none)?.constantState
 
-        var col = ceil((getIndex(view.tag.toString()) / maxRow.toDouble())).toInt()
+        val col = ceil((getIndex(view.tag.toString()) / size.toDouble())).toInt()
 //        var row = getIndex(view.tag.toString()) - 1
 //        if(col != 0)
-        var row = (getIndex(view.tag.toString()) - 3 * (col - 1))
+        val row = (getIndex(view.tag.toString()) - size * (col - 1))
+
+        println(col)
+        println(row)
 
         //tracker
-        this.tracker = findViewById(R.id.textView2)
+//        this.tracker = findViewById(R.id.textView2)
 
         //caro square handler
-        var check = "No"
         if (imgID == imgID2) {
-            check = "Yes"
             if (turn % 2 == 0) {
                 item.setImageResource(R.drawable.x)
                 table[col - 1][row - 1] = 1
@@ -135,8 +154,28 @@ class MainActivity : AppCompatActivity() {
             for (j in 0..2 step 1)
                 println(table[i][j])
         }
+    }
 
+    fun replay(view: View) {
 
+        gridLayout.removeAllViews()
+        table = Array(size) { Array(size) { 0 } }
+        turn = 1
+
+        for (i in 1..size * size) {
+            val imageView = ImageView(this)
+            imageView.layoutParams = ViewGroup.LayoutParams(100, 100)
+            imageView.setImageResource(R.drawable.none)
+            imageView.setPadding(1,1,1,1)
+            imageView.setOnClickListener {
+                attack(it)
+            }
+            imageView.id = i
+            imageView.tag = i.toString()
+            gridLayout.addView(imageView)
+        }
+
+        backdrop.dismiss()
     }
 
 }
