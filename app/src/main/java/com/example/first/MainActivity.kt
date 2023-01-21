@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             val imageView = ImageView(this)
             imageView.layoutParams = ViewGroup.LayoutParams(100, 100)
             imageView.setImageResource(R.drawable.none)
-            imageView.setPadding(1, 1, 1, 1)
+            imageView.setPadding(3, 3, 3, 3)
             imageView.setOnClickListener {
                 attack(it)
             }
@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             val imageView = ImageView(this)
             imageView.layoutParams = ViewGroup.LayoutParams(100, 100)
             imageView.setImageResource(R.drawable.none)
-            imageView.setPadding(1, 1, 1, 1)
+            imageView.setPadding(3, 3, 3, 3)
             imageView.setOnClickListener {
                 attack(it)
             }
