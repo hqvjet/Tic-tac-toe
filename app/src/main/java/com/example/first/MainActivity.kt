@@ -1,12 +1,15 @@
 package com.example.first
 
 import android.os.Bundle
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import kotlin.math.ceil
 
 class MainActivity : AppCompatActivity() {
@@ -19,14 +22,16 @@ class MainActivity : AppCompatActivity() {
     var turn = 1
 
     //Game Resource
-    private var size = 100
-    private val milestone = 4
+    private var size = 50
+    private val milestone = 5
 
     //3x3 table for handling game data
     private var table = Array(size) { Array(size) { 0 } } // X: 1, O: 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(androidx.appcompat.R.style.AlertDialog_AppCompat)
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(AppCompatDelegate.FEATURE_SUPPORT_ACTION_BAR)
         setContentView(R.layout.activity_main)
     }
 
@@ -40,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             val imageView = ImageView(this)
             imageView.layoutParams = ViewGroup.LayoutParams(100, 100)
             imageView.setImageResource(R.drawable.none)
-            imageView.setPadding(1,1,1,1)
+            imageView.setPadding(1, 1, 1, 1)
             imageView.setOnClickListener {
                 attack(it)
             }
@@ -52,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //func that contain game's rule
-    // X: 1, O: 2
+// X: 1, O: 2
     private fun handleGame(keyY: Int, keyX: Int, target: Int) {
         println("Target: $target")
 
@@ -62,7 +67,8 @@ class MainActivity : AppCompatActivity() {
 
         fun endgame(winner: Int) {
             //handle
-            backdrop = Backdrop(if(winner == 1) "X Won" else "O Won").apply { isCancelable = false }
+            backdrop =
+                Backdrop(if (winner == 1) "X Won" else "O Won").apply { isCancelable = false }
             backdrop.show(supportFragmentManager, "MyDialogFragment")
         }
 
@@ -166,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             val imageView = ImageView(this)
             imageView.layoutParams = ViewGroup.LayoutParams(100, 100)
             imageView.setImageResource(R.drawable.none)
-            imageView.setPadding(1,1,1,1)
+            imageView.setPadding(1, 1, 1, 1)
             imageView.setOnClickListener {
                 attack(it)
             }
